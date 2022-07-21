@@ -1,0 +1,1 @@
+inline class UserId(val value: Long)
