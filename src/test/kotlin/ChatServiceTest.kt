@@ -15,7 +15,7 @@ class ChatServiceTest {
         val expectedResult = listOf(message)
 
         chatService.createMessage(ownerId, content)
-        val result = chatService.getMessages(chatId)
+        val result = chatService.getMessages(chatId, ownerId)
 
         assertEquals(expectedResult, result)
     }

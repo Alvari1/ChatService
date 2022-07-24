@@ -1,0 +1,1 @@
+class MessageNotFoundException(s: String) : RuntimeException(s)
