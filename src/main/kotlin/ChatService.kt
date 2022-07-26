@@ -52,12 +52,13 @@ class ChatService {
             }
     }
 
-    fun getMessages(chatId: Long): List<Message> =
-        chats.filter {
-            it.id == chatId
-        }.map {
-            it.messages
-        }.flatten()
+    fun getMessages(chatId: Long, userId: UserId): List<Message> =
+        chats.singleOrNull { it.id == chatId }
+            .let { it?.messages ?: throw ChatNotFoundException("Chat $chatId not found") }
+            .asSequence()
+            .filter { it.ownerId == userId }
+            .ifEmpty { throw MessageNotFoundException("no messages for user $userId found") }
+            .toList()
 
     fun removeChat(chatId: Long) {
         chats = chats.filter { it.id != chatId }
